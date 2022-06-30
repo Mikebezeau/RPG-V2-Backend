@@ -1,5 +1,6 @@
 import {
   CharClass,
+  ClassAbility,
   ClassAttributeBoost,
   ClassSpecialty,
 } from "../../models/gameData/charClassModel.js";
@@ -15,6 +16,9 @@ export const getAllCharClass = async (req, res) => {
           model: ClassAttributeBoost,
         },
         {
+          model: Ability,
+        },
+        {
           model: ClassSpecialty,
           include: [
             {
@@ -23,6 +27,7 @@ export const getAllCharClass = async (req, res) => {
           ],
         },
       ],
+      order: [["class_name", "ASC"]],
     });
     res.json(charClass);
   } catch (error) {

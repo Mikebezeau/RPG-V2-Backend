@@ -11,6 +11,7 @@ export const getAllAncestry = async (req, res) => {
           model: AncestryAttributeBoostFlaw,
         },
       ],
+      order: [["ancestry_name", "ASC"]],
     });
     res.json(ancestry);
   } catch (error) {

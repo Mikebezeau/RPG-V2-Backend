@@ -3,7 +3,7 @@ import { Skill } from "../../models/gameData/skillModel.js";
 export const getAllSkill = async (req, res) => {
   try {
     const skill = await Skill.findAll({
-      logging: false,
+      order: [["skill_name", "ASC"]],
     });
     res.json(skill);
   } catch (error) {

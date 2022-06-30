@@ -116,7 +116,7 @@ CharAttributeBoost.belongsTo(Character, {
   targetKey: "character_id",
 });
 
-const CharSkill = db.define("character_skill", {
+const CharSkillIncrease = db.define("character_skill_increase", {
   character_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -125,16 +125,17 @@ const CharSkill = db.define("character_skill", {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },
-  skill_rank: {
+  level_gained: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
   },
 });
 
-Character.hasMany(CharSkill, {
+Character.hasMany(CharSkillIncrease, {
   foreignKey: "character_id",
   sourceKey: "character_id",
 });
-CharSkill.belongsTo(Character, {
+CharSkillIncrease.belongsTo(Character, {
   foreignKey: "character_id",
   targetKey: "character_id",
 });
@@ -181,4 +182,4 @@ Character.belongsTo(ClassSpecialty, {
   targetKey: "class_specialty_id",
 });
 
-export { Character, CharAttributeBoost, CharSkill };
+export { Character, CharAttributeBoost, CharSkillIncrease };

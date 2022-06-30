@@ -65,6 +65,32 @@ ClassAttributeBoost.belongsTo(CharClass, {
   targetKey: "class_id",
 });
 
+const ClassAbility = db.define("class_ability", {
+  class_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  ability_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  level_gained: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+});
+
+CharClass.belongsToMany(Ability, {
+  through: ClassAbility,
+  foreignKey: "class_id",
+  otherKey: "ability_id",
+});
+Ability.belongsTo(CharClass, {
+  through: ClassAbility,
+  foreignKey: "ability_id",
+  otherKey: "class_id",
+});
+
 const ClassSpecialty = db.define("class_specialty", {
   class_specialty_id: {
     type: DataTypes.INTEGER,
@@ -117,6 +143,7 @@ Ability.belongsTo(ClassSpecialty, {
 export {
   CharClass,
   ClassAttributeBoost,
+  ClassAbility,
   ClassSpecialty,
   ClassSpecialtyAbility,
 };

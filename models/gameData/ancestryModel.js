@@ -1,6 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/database.js";
 
+import { Ability } from "../abilityModel.js";
+
 const { DataTypes } = Sequelize;
 
 const Ancestry = db.define("ancestry", {
@@ -56,4 +58,26 @@ AncestryAttributeBoostFlaw.belongsTo(Ancestry, {
   targetKey: "ancestry_id",
 });
 
-export { Ancestry, AncestryAttributeBoostFlaw };
+const AncestryAbility = db.define("ancestry_ability", {
+  ancestry_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  ability_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+});
+
+Ancestry.belongsToMany(Ability, {
+  through: AncestryAbility,
+  foreignKey: "ancestry_id",
+  otherKey: "ability_id",
+});
+Ability.belongsTo(Ancestry, {
+  through: AncestryAbility,
+  foreignKey: "ability_id",
+  otherKey: "ancestry_id",
+});
+
+export { Ancestry, AncestryAttributeBoostFlaw, AncestryAbility };

@@ -11,6 +11,7 @@ export const getAllBackground = async (req, res) => {
           model: BackgroundAttributeBoost,
         },
       ],
+      order: [["background_name", "ASC"]],
     });
     res.json(background);
   } catch (error) {

@@ -3,13 +3,12 @@ import { Trait, TraitType } from "../../models/gameData/traitModel.js";
 export const getAllTrait = async (req, res) => {
   try {
     const trait = await Trait.findAll({
-      logging: false,
       include: [
         {
           model: TraitType,
-          //  required: false
         },
       ],
+      order: [["trait_name", "ASC"]],
     });
     res.json(trait);
   } catch (error) {

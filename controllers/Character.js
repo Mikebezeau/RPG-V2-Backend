@@ -1,7 +1,7 @@
 import {
   Character,
   CharAttributeBoost,
-  CharSkill,
+  CharSkillIncrease,
 } from "../models/characterModel.js";
 
 import {
@@ -20,14 +20,15 @@ import {
   CharClass,
   ClassAttributeBoost,
   ClassSpecialty,
-  ClassSpecialtyAbility,
 } from "../models/gameData/charClassModel.js";
 
 import { Ability } from "../models/abilityModel.js";
 
 export const getAllCharacter = async (req, res) => {
   try {
-    const character = await Character.findAll({});
+    const character = await Character.findAll({
+      order: [["name", "ASC"]],
+    });
     res.json(character);
   } catch (error) {
     res.json({ message: error.message });
@@ -66,6 +67,9 @@ export const getCharacterById = async (req, res) => {
             {
               model: ClassAttributeBoost,
             },
+            {
+              model: Ability,
+            },
           ],
         },
         {
@@ -80,7 +84,7 @@ export const getCharacterById = async (req, res) => {
           model: CharAttributeBoost,
         },
         {
-          model: CharSkill,
+          model: CharSkillIncrease,
         },
       ],
     });
